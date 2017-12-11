@@ -11,13 +11,14 @@ configure_file(
     @ONLY
 )
 
+FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG_src" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 IF(CUDA_HOME)
     MESSAGE("-- YOU SET CUDA_HOME TO: " ${CUDA_HOME})
     MESSAGE("-- PATCHING *.PRO FILES NOW")
 
     ### Find all *.pro files
-    FILE(GLOB_RECURSE PRO_FILES "${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG_src/*.pro")
+    FILE(GLOB_RECURSE PRO_FILES "${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/*.pro")
 
     FOREACH(item ${PRO_FILES})
         MESSAGE("-- PATCHING *.PRO FILE: " ${item})
@@ -30,7 +31,7 @@ ENDIF()
 include(ExternalProject)
 ExternalProject_Add(
     libcudaHOG
-    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG_src
+    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src
     CONFIGURE_COMMAND qmake -makefile <SOURCE_DIR>
     CONFIGURE_COMMAND ""
     BUILD_COMMAND make
@@ -39,16 +40,16 @@ ExternalProject_Add(
 )
 
 ### Install files ###
-install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/src/libcudaHOG/cudaHOG
+install(DIRECTORY ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG/cudaHOG
   DESTINATION ${CMAKE_INSTALL_PREFIX}/include
   FILES_MATCHING PATTERN "*.h"
 )
 
 install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/src/libcudaHOG-build/cudaHOG/libcudaHOG.so
-  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/src/libcudaHOG-build/cudaHOG/libcudaHOG.so.1
-  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/src/libcudaHOG-build/cudaHOG/libcudaHOG.so.1.0
-  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/src/libcudaHOG-build/cudaHOG/libcudaHOG.so.1.0.0
+  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG-build/cudaHOG/libcudaHOG.so
+  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG-build/cudaHOG/libcudaHOG.so.1
+  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG-build/cudaHOG/libcudaHOG.so.1.0
+  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG-build/cudaHOG/libcudaHOG.so.1.0.0
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/
 ) 
 
