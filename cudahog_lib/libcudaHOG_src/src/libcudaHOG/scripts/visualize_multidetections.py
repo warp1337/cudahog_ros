@@ -25,7 +25,7 @@
 import os, sys, glob
 import Image, ImageDraw
 
-__usage__= """visualize_multidetections.py <DETECTIONS_DIR> <PATH_TO_IMG> <OUTPUT_DIR>"""
+__usage__= """visualize_multidetections.py <DETECTIONS_DIR> <PATH_TO_IMG> <OUTPUT_DIR> <MIN_SCORE>"""
 
 if len(sys.argv) <> 4:
 	print __usage__
@@ -34,6 +34,7 @@ if len(sys.argv) <> 4:
 DETECTIONS_DIR = sys.argv[1]
 PATH = sys.argv[2]
 OUT_DIR = sys.argv[3]
+SCORE = float(sys.argv[4])
 
 WIDTH = 2
 
@@ -68,7 +69,8 @@ def parse_multi_detections(filename):
 				uy = int(el[3])
 				score = float(el[4])
 				print '\t', x,y,ux,uy, '\t', score
-				multi_detections[current_model_name].append((x,y,ux,uy,score))
+				if score >= SCORE:
+					multi_detections[current_model_name].append((x,y,ux,uy,score))
 	return multi_detections
 
 
