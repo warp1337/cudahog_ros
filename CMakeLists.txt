@@ -10,16 +10,31 @@ configure_file(
     ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/pkgconfig/cudaHOG.pc
     @ONLY
 )
-set(groundHOG_tar http://www.vision.rwth-aachen.de/media/resource_files/groundHOG_v1.1_b.tar.gz)
-message(STATUS "Will download libcudaHOG from: ${groundHOG_tar}")
+
+
+IF(CUDA_HOME)
+    MESSAGE("-- YOU SET CUDA_HOME TO: " ${CUDA_HOME})
+    MESSAGE("-- PATCHING *.PRO FILES NOW")
+
+    ### Find all *.pro files
+    FILE(GLOB_RECURSE PRO_FILES "${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG_src/*.pro")
+
+    FOREACH(item ${PRO_FILES})
+        MESSAGE("-- PATCHING *.PRO FILE: " ${item})
+        FILE(READ ${item} Contents)
+        STRING(REPLACE "/usr/local/cuda/" "${CUDA_HOME}/" replacement "${Contents}")
+        FILE(WRITE ${item} ${replacement})
+    ENDFOREACH(item)
+ENDIF()
+
 include(ExternalProject)
 ExternalProject_Add(
     libcudaHOG
-    PREFIX ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG
-    URL ${groundHOG_tar}
-		PATCH_COMMAND patch -p0 <SOURCE_DIR>/cudaHOG/cudaHOG.cpp < ${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG/patch/cudaHOG.cpp.diff
+    PREFIX ${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG_src
     CONFIGURE_COMMAND qmake -makefile <SOURCE_DIR>
+    CONFIGURE_COMMAND ""
     BUILD_COMMAND make
+    BUILD_COMMAND ""
     INSTALL_COMMAND "" #Skipp install step. See below
 )
 
