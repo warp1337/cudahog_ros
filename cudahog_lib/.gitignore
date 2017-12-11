@@ -33,7 +33,9 @@
 
 *.idea
 .idea
+*.idea/
 
 build
 *libcudaHOG-build
 *libcudaHOG-stamp
+
