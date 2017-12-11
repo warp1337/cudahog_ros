@@ -56,6 +56,17 @@ install(FILES
 install(FILES
   ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/pkgconfig/cudaHOG.pc
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/
-) 
+)
+
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG/model/svm_model
+  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG/model/config
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/share/cudahog
+)
+
+install(FILES
+  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/src/libcudaHOG-build/bin/cudaHOGDetect
+  DESTINATION ${CMAKE_INSTALL_PREFIX}/bin
+)
 
 ##################################################################################################################
