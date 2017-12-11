@@ -6,12 +6,13 @@ project(3rd_party)
 message(STATUS "Preparing libcudaHOG")
 message(STATUS "Created pkg-config file: ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/pkgconfig/cudaHOG.pc")
 configure_file(
-    ${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG/pkgconfig/cudaHOG.pc.in
-    ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/pkgconfig/cudaHOG.pc
+    ${CMAKE_CURRENT_SOURCE_DIR}/pkgconfig/cudaHOG.pc.in
+    ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cudaHOG.pc
     @ONLY
 )
 
 FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/libcudaHOG_src" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
+FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/pkgconfig" DESTINATION ${CMAKE_CURRENT_BINARY_DIR})
 
 IF(CUDA_HOME)
     MESSAGE("-- YOU SET CUDA_HOME TO: " ${CUDA_HOME})
@@ -54,7 +55,7 @@ install(FILES
 ) 
 
 install(FILES
-  ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG/pkgconfig/cudaHOG.pc
+  ${CMAKE_CURRENT_BINARY_DIR}/pkgconfig/cudaHOG.pc
   DESTINATION ${CMAKE_INSTALL_PREFIX}/lib/pkgconfig/
 )
 
