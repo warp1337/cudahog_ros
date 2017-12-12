@@ -122,18 +122,15 @@ void imageCallback(const Image::ConstPtr &msg)
 void connectCallback(ros::Subscriber &sub_msg,
                      ros::NodeHandle &n,
                      string img_topic,
-                     Subscriber<CameraInfo> &sub_cam,
                      image_transport::SubscriberFilter &sub_col,
                      image_transport::ImageTransport &it){
     if(!pub_message.getNumSubscribers() && !pub_result_image.getNumSubscribers()) {
         ROS_DEBUG("cudahog: No subscribers. Unsubscribing.");
         sub_msg.shutdown();
-        sub_cam.unsubscribe();
         sub_col.unsubscribe();
     } else {
         ROS_DEBUG("cudahog: New subscribers. Subscribing.");
         sub_msg = n.subscribe(img_topic.c_str(), 1, &imageCallback);
-        sub_cam.subscribe();
         sub_col.subscribe(it,sub_col.getTopic().c_str(),1);
     }
 }
@@ -185,14 +182,13 @@ int main(int argc, char **argv)
     // Set queue size to 1 because generating a queue here will only pile up images and delay the output by the amount of queued images
     ros::Subscriber sub_message;
     image_transport::SubscriberFilter subscriber_color;
-    subscriber_color.subscribe(it, image_color.c_str(), 1); subscriber_color.unsubscribe();
-    Subscriber<CameraInfo> subscriber_camera_info(n, camera_info.c_str(), 1); subscriber_camera_info.unsubscribe();
+    subscriber_color.subscribe(it, image_color.c_str(), 1);
+    subscriber_color.unsubscribe();
 
     ros::SubscriberStatusCallback con_cb = boost::bind(&connectCallback,
                                                        boost::ref(sub_message),
                                                        boost::ref(n),
                                                        image_color,
-                                                       boost::ref(subscriber_camera_info),
                                                        boost::ref(subscriber_color),
                                                        boost::ref(it));
 
@@ -200,27 +196,17 @@ int main(int argc, char **argv)
                                                                    boost::ref(sub_message),
                                                                    boost::ref(n),
                                                                    image_color,
-                                                                   boost::ref(subscriber_camera_info),
                                                                    boost::ref(subscriber_color),
                                                                    boost::ref(it));
-
-    // The real queue size for synchronisation is set here.
-    sync_policies::ApproximateTime<Image, CameraInfo> MySyncPolicy(queue_size);
-    MySyncPolicy.setAgePenalty(1000);
-
-    const sync_policies::ApproximateTime<Image, CameraInfo> MyConstSyncPolicy = MySyncPolicy;
-    Synchronizer< sync_policies::ApproximateTime<Image, CameraInfo> > sync(MyConstSyncPolicy,
-                                                                           subscriber_color,
-                                                                           subscriber_camera_info);
 
     sub_message = n.subscribe(image_color.c_str(), 1, &imageCallback);
 
     // Create publishers
     private_node_handle_.param("detections", pub_topic, string("/cudahog/detections"));
-    pub_message = n.advertise<CudaHogDetections>(pub_topic.c_str(), 10, con_cb, con_cb);
+    pub_message = n.advertise<CudaHogDetections>(pub_topic.c_str(), 2, con_cb, con_cb);
 
     private_node_handle_.param("result_image", pub_image_topic, string("/cudahog/image"));
-    pub_result_image = it.advertise(pub_image_topic.c_str(), 1, image_cb, image_cb);
+    pub_result_image = it.advertise(pub_image_topic.c_str(), 2, image_cb, image_cb);
 
     ros::spin();
 
