@@ -1,12 +1,12 @@
 # CUDA HOG ROS
 
-[![cuda_hog_ros_image](https://github.com/warp1337/cudahog_ros/blob/master/cuda_hog.png)]
+![cuda_hog_ros_image](https://github.com/warp1337/cudahog_ros/blob/master/cuda_hog.png)
 
-This ROS package is, basically, a 'modernized' and streamlined version
+This **ROS** package is, basically, a 'modernized' and streamlined version
 of the famous groundHOG component developed in the SPENCER project:
 https://github.com/spencer-project/spencer_people_tracking
 
-Basically, this 'kind of fork' contains an updated/patched version of 
+This 'kind of fork' contains an updated/patched version of 
 libcudaHOG which has been modified in order to work on recent Ubuntu 
 (Debian) versions. Moreover, cudaHOG (groundHOG, respectively) has 
 been *decoupled* from the SPENCER eco-system to run stand-alone! (Yay!).
@@ -14,7 +14,7 @@ Lastly, the installation procedure of this project contains all steps
 and modifications that had to be done manually earlier, e.g., 
 setting the required/target cuda architecture.
 
-# Installation
+## Installation
 
 First install CUDA. Either use the stand-alone installer or the
 package management of your choice, e.g, apt. In my experience it 
@@ -27,7 +27,7 @@ or use apt. Compiling OpenCV yourself has the benefit of optimized
 binaries if you choose the corresponding CXXFLAGS, for instance. 
 However, using apt is also fine.
 
-Since this package is named cudahog_*ROS*, it is assumed that you already 
+Since this package is named cudahog_**ROS**, it is assumed that you already 
 have ROS installed. Okay, now clone this repo.
 
 First compile libcudaHOG. If you dont set CUDA_HOME, it is assumed
@@ -59,7 +59,7 @@ make && make install
 
 You are done.
 
-# Usage
+## Usage
 
 <pre>
 source $INSTALL_PREFIX/setup.bash
@@ -77,14 +77,13 @@ in the cudahog.launch
 Here, image_raw is appended in the code, so just change the prefix...
 </pre>
 
-# Further Plans
+## Further Plans
 
 Currently, we are training a new model, based on libcudaHOG that
 detects upper-bodies only, in contrast the the current model that
 detects pedestrians (needs legs for instance).
 
-
- # Credits
+## Credits
  
  - groundHOG has been provided by RWTH Aachen: 
  - http://www.vision.rwth-aachen.de/projects/
