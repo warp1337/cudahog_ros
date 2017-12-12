@@ -2,16 +2,16 @@ cmake_minimum_required(VERSION 2.8.3)
 project(cudahog_ros)
 
 ## Find catkin macros and libraries
-## if COMPONENTS list like find_package(catkin REQUIRED COMPONENTS xyz)
+## if COMPONENTS list like FIND_PACKAGE(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
-find_package(PkgConfig REQUIRED)
-find_package(catkin REQUIRED COMPONENTS roscpp rospy std_msgs sensor_msgs message_filters image_transport message_generation cv_bridge)
+FIND_PACKAGE(PkgConfig REQUIRED)
+FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp rospy std_msgs sensor_msgs message_filters image_transport message_generation cv_bridge)
 FIND_PACKAGE(OpenCV REQUIRED)
 
 pkg_check_modules(CUDAHOG cudaHOG)
 
 ## Include Qt
-find_package(Qt4 REQUIRED COMPONENTS QtCore QtGui)
+FIND_PACKAGE(Qt4 REQUIRED COMPONENTS QtCore QtGui)
 include(${QT_USE_FILE})
 
 set(CMAKE_BUILD_TYPE Release)
@@ -66,7 +66,6 @@ catkin_package(
   INCLUDE_DIRS include
 )
 
-
 ###########
 ## Build ##
 ###########
@@ -74,7 +73,7 @@ catkin_package(
 ## Specify additional locations of header files
 ## Your package locations should be listed before other locations
 # include_directories(include)
-include_directories( include
+include_directories(include
   ${catkin_INCLUDE_DIRS}
   ${CUDAHOG_INCLUDE_DIRS}
   ${OpenCV_INCLUDE_DIRS}
