@@ -40,7 +40,7 @@ source /opt/ros/kinetic.setup.bash
 alterntive: use your catkin_ws and source devel/setup.bash
 
 mkdir build && cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=_YOUR_CHOICE_ -DCUDA_HOME=_WHERE_CUDA_IS_INSTALLED
+cmake .. -DCMAKE_INSTALL_PREFIX=__YOUR_CHOICE__ -DCUDA_HOME=__WHERE_CUDA_IS_INSTALLED__
 make && make install
 </pre>
 
@@ -61,10 +61,12 @@ You are done.
 
 # Usage
 
+<pre>
 source $INSTALL_PREFIX/setup.bash
-alternative: when using catkin_ws
+or
 source devel/setup.bash
 roslaunch cudahog_ros cudahog.launch
+</pre>
 
 You will most probably need to change the default image topic
 in the cudahog.launch
