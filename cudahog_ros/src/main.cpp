@@ -7,7 +7,6 @@
 #include <sensor_msgs/CameraInfo.h>
 #include <cv_bridge/cv_bridge.h>
 
-
 #include <message_filters/subscriber.h>
 #include <message_filters/synchronizer.h>
 #include <message_filters/sync_policies/approximate_time.h>
@@ -17,7 +16,6 @@
 #include <QImage>
 #include <QPainter>
 
-// OPENCV
 #include <opencv2/core/core.hpp>
 #include <opencv2/imgproc/imgproc.hpp>
 #include <opencv2/opencv.hpp>
@@ -32,7 +30,6 @@ using namespace sensor_msgs;
 using namespace message_filters;
 using namespace cudahog_ros;
 
-
 cudaHOG::cudaHOGManager *hog;
 ros::Publisher pub_message;
 image_transport::Publisher pub_result_image;
@@ -41,7 +38,6 @@ double score_thresh;
 
 void render_bbox_2D(CudaHogDetections& detections, cv::Mat& image)
 {
-
     for(int i = 0; i < detections.pos_x.size(); i++){
         int x =(int) detections.pos_x[i];
         int y =(int) detections.pos_y[i];
@@ -60,16 +56,15 @@ void render_bbox_2D(CudaHogDetections& detections, cv::Mat& image)
 
 void imageCallback(const Image::ConstPtr &msg)
 {
-    //    ROS_INFO("Entered img callback");
     std::vector<cudaHOG::Detection> detHog;
 
-    //  unsigned char image
+    // unsigned char image, this is required for libcudahog, unfortunately.
     QImage image_rgb(&msg->data[0], msg->width, msg->height, QImage::Format_RGB888);
     int returnPrepare = hog->prepare_image(image_rgb.convertToFormat(QImage::Format_ARGB32).bits(), (short unsigned int)msg->width, (short unsigned int)msg->height);
 
     if(returnPrepare)
     {
-        ROS_ERROR("cudahog: Error while preparing the image");
+        ROS_ERROR(">>> Error while preparing the image for cudahog");
         return;
     }
 
@@ -100,18 +95,18 @@ void imageCallback(const Image::ConstPtr &msg)
     }
 
     if(pub_result_image.getNumSubscribers()) {
-        ROS_DEBUG("Publishing image");
-        cv_bridge::CvImagePtr cv_ptr;
-        try {
-            if(detections.pos_x.size() > 0) {
+        ROS_DEBUG(">>> Got result, publishing image");
+        if(detections.pos_x.size() > 0) {
+            cv_bridge::CvImagePtr cv_ptr;
+            try {
                 cv_ptr = cv_bridge::toCvCopy(msg, sensor_msgs::image_encodings::BGR8);
                 render_bbox_2D(detections, cv_ptr->image);
                 pub_result_image.publish(cv_ptr->toImageMsg());
             }
-        }
-        catch (cv_bridge::Exception &e) {
-            ROS_ERROR("E >>> CV_BRIDGE exception: %s", e.what());
-            return;
+            catch (cv_bridge::Exception &e) {
+                ROS_ERROR(">>> CV_BRIDGE exception: %s", e.what());
+                return;
+            }
         }
     }
 
@@ -125,11 +120,11 @@ void connectCallback(ros::Subscriber &sub_msg,
                      image_transport::SubscriberFilter &sub_col,
                      image_transport::ImageTransport &it){
     if(!pub_message.getNumSubscribers() && !pub_result_image.getNumSubscribers()) {
-        ROS_DEBUG("cudahog: No subscribers. Unsubscribing.");
+        ROS_INFO(">>> No subscribers. Unsubscribing.");
         sub_msg.shutdown();
         sub_col.unsubscribe();
     } else {
-        ROS_DEBUG("cudahog: New subscribers. Subscribing.");
+        ROS_INFO(">>> New subscribers. Subscribing.");
         sub_msg = n.subscribe(img_topic.c_str(), 1, &imageCallback);
         sub_col.subscribe(it,sub_col.getTopic().c_str(),1);
     }
@@ -142,7 +137,6 @@ int main(int argc, char **argv)
     ros::NodeHandle n;
 
     // Declare variables that can be modified by launch file or command line.
-    int queue_size;
     string camera_ns;
     string pub_topic;
     string pub_image_topic;
@@ -152,23 +146,18 @@ int main(int argc, char **argv)
     // Use a private node handle so that multiple instances of the node can be run simultaneously
     // while using different parameters.
     ros::NodeHandle private_node_handle_("~");
-    private_node_handle_.param("queue_size", queue_size, int(10));
     private_node_handle_.param("model", conf, string(""));
-    private_node_handle_.param("camera_namespace", camera_ns, string("/head_xtion/rgb"));
+    private_node_handle_.param("camera_namespace", camera_ns, string("/xtion/rgb"));
     private_node_handle_.param("score_thresh", score_thresh, 0.7);
 
     string image_color = camera_ns + "/image_raw";
-    string camera_info = camera_ns + "/camera_info";
-
 
     // Initialise cudaHOG
     if(strcmp(conf.c_str(),"") == 0) {
-        ROS_ERROR("No model path specified.");
-        ROS_ERROR("Run with: rosrun ... _model:=/path/to/model");
+        ROS_ERROR(">>> No model path specified.");
+        ROS_ERROR(">>> Run with: rosrun ... _model:=/path/to/model");
         exit(0);
     }
-
-    ROS_DEBUG("cudahog: Queue size for synchronisation is set to: %i", queue_size);
 
     hog = new  cudaHOG::cudaHOGManager();
     hog->read_params_file(conf);
