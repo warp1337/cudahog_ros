@@ -52,8 +52,8 @@ void render_bbox_2D(CudaHogDetections& detections, cv::Mat& image)
         pt_1.x = x;
         pt_1.y = y;
         cv::Point pt_2;
-        pt_2.x = x+20;
-        pt_2.y = y+20;
+        pt_2.x = x+w;
+        pt_2.y = y+h;
         cv::rectangle(image, pt_1, pt_2, cv::Scalar(255, 255, 255), 2, 8, 0);
     }
 }
