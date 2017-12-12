@@ -1,6 +1,6 @@
 # CUDA HOG ROS
 
-[cuda_hog_ros_image](https://github.com/warp1337/cudahog_ros/blob/master/cuda_hog.png)
+[![cuda_hog_ros_image](https://github.com/warp1337/cudahog_ros/blob/master/cuda_hog.png)]
 
 This ROS package is, basically, a 'modernized' and streamlined version
 of the famous groundHOG component developed in the SPENCER project:
@@ -86,6 +86,9 @@ detects pedestrians (needs legs for instance).
 
  # Credits
  
- groundHOG has been provided by RWTH Aachen: http://www.vision.rwth-aachen.de/projects/
- The initial ROSification was done by the SPENCER people: https://github.com/spencer-project/spencer_people_tracking/tree/master/detection/monocular_detectors/rwth_ground_hog
- This package has been created and modified by Florian Lier: https://cit-ec.de/en/central-lab-facilities/contacts
+ - groundHOG has been provided by RWTH Aachen: 
+ - http://www.vision.rwth-aachen.de/projects/
+ - The initial ROSification was done by the SPENCER people: 
+ - https://github.com/spencer-project/spencer_people_tracking/tree/master/detection/monocular_detectors/rwth_ground_hog
+ - This package has been created and modified by Florian Lier: 
+ - https://cit-ec.de/en/central-lab-facilities/contacts
