@@ -150,6 +150,8 @@ int main(int argc, char **argv)
     private_node_handle_.param("camera_namespace", camera_ns, string("/xtion/rgb"));
     private_node_handle_.param("score_thresh", score_thresh, 0.7);
 
+    ROS_INFO(">>> HOG scoring threshold: %f", score_thresh);
+
     string image_color = camera_ns + "/image_raw";
 
     // Initialise cudaHOG
