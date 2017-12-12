@@ -1,6 +1,6 @@
 # CUDA HOG ROS
 
-[cuda_hog_ros_image]()
+[cuda_hog_ros_image](https://github.com/warp1337/cudahog_ros/blob/master/cuda_hog.png)
 
 This ROS package is, basically, a 'modernized' and streamlined version
 of the famous groundHOG component developed in the SPENCER project:
