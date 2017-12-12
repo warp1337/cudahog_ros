@@ -1,0 +1,38 @@
+<?xml version="1.0"?>
+<package>
+  <name>cudahog_ros</name>
+  <version>1.0.0</version>
+  <description>
+      The Cuda Hog Pedestrian Detector. This is a streamlined fork of the famous
+      groundHOG detector developed in the SPENCER project: https://github.com/spencer-project
+  </description>
+
+  <maintainer email="flier@techfak.uni-bielefeld.de">Florian Lier</maintainer>
+
+  <!-- Must be GPLv3-licensed, because source code dependency cudaHOG is also under GPL -->
+  <license>GPLv3</license>
+
+  <url type="website">https://cit-ec.de/en/central-lab-facilities</url>
+
+  <author email="cdondrup@lincoln.ac.uk">Christian Dondrup</author>
+  <author email="mitzel@umic.rwth-aachen.de">Dennis Mitzel</author>
+  <author email="fl@techfak.uni-bielefeld.de">Florian Lier</author>
+
+  <buildtool_depend>catkin</buildtool_depend>
+  <build_depend>rospy</build_depend>
+  <build_depend>roscpp</build_depend>
+  <build_depend>std_msgs</build_depend>
+  <build_depend>message_filters</build_depend>
+  <build_depend>libqt4-dev</build_depend>
+  <build_depend>image_transport</build_depend>
+  <build_depend>message_generation</build_depend>
+  <build_depend>cv_bridge</build_depend>
+  <run_depend>rospy</run_depend>
+  <run_depend>cv_bridge</run_depend>
+  <run_depend>roscpp</run_depend>
+  <run_depend>std_msgs</run_depend>
+  <run_depend>message_filters</run_depend>
+  <run_depend>libqt4-dev</run_depend>
+  <run_depend>image_transport</run_depend>
+  <export/>
+<build_depend>roslib</build_depend><run_depend>roslib</run_depend></package>

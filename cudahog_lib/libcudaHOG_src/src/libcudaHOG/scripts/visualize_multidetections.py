@@ -27,7 +27,7 @@ import Image, ImageDraw
 
 __usage__= """visualize_multidetections.py <DETECTIONS_DIR> <PATH_TO_IMG> <OUTPUT_DIR> <MIN_SCORE>"""
 
-if len(sys.argv) <> 4:
+if len(sys.argv) < 5:
 	print __usage__
 	sys.exit(1)
 
