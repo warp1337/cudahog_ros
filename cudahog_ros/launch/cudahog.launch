@@ -1,6 +1,6 @@
 <launch>
     <arg name="model" default="$(find cudahog_ros)/model/config"/>
-    <arg name="camera_namespace" default="/pepper_robot/camera/front"/>
+    <arg name="camera_namespace" default="/pepper_robot/sink/front"/>
     <arg name="detections" default="/cudahog/detections"/>
     <arg name="result_image" default="/cudahog/image"/>
 
