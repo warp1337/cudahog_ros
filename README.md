@@ -40,6 +40,7 @@ source /opt/ros/kinetic.setup.bash
 alterntive: use your catkin_ws and source devel/setup.bash
 
 mkdir build && cd build
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
 cmake .. -DCMAKE_INSTALL_PREFIX=__YOUR_CHOICE__ -DCUDA_HOME=__WHERE_CUDA_IS_INSTALLED__
 make && make install
 </pre>
@@ -53,6 +54,7 @@ source /opt/ros/kinetic.setup.bash
 alterntive: use your catkin_ws and source devel/setup.bash
 
 mkdir build && cd build
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
 cmake .. -DCMAKE_INSTALL_PREFIX=_YOUR_CHOICE_
 make && make install
 </pre>
@@ -65,6 +67,7 @@ You are done.
 source $INSTALL_PREFIX/setup.bash
 or
 source devel/setup.bash
+export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
 roslaunch cudahog_ros cudahog.launch
 </pre>
 
