@@ -10,27 +10,6 @@ FIND_PACKAGE(OpenCV REQUIRED)
 
 PKG_CHECK_MODULES(CUDAHOG cudaHOG)
 
-FIND_PACKAGE(CUDA)
-if (CUDA_FOUND)
-  FIND_PACKAGE(CUDA REQUIRED)
-  MESSAGE(STATUS "CUDA Version: ${CUDA_VERSION_STRINGS}")
-  MESSAGE(STATUS "CUDA Libararies: ${CUDA_LIBRARIES}")
-  set(
-    CUDA_NVCC_FLAGS
-    ${CUDA_NVCC_FLAGS};
-    -O3
-    -gencode arch=compute_20,code=[sm_20,sm_21]
-    -gencode arch=compute_30,code=sm_30
-    -gencode arch=compute_35,code=sm_35
-    -gencode arch=compute_50,code=[sm_50,compute_50]
-    -gencode arch=compute_52,code=[sm_52,compute_52]
-    -gencode arch=compute_61,code=sm_61
-    -gencode arch=compute_62,code=sm_62
-  )
-else()
-  MESSAGE(ERROR "CUDA Libararies NOT found. :|")
-endif()
-
 ## Include Qt
 FIND_PACKAGE(Qt4 REQUIRED COMPONENTS QtCore QtGui)
 include(${QT_USE_FILE})
@@ -119,7 +98,6 @@ ADD_DEPENDENCIES(${PROJECT_NAME} ${PROJECT_NAME}_generate_MESSAGEs_cpp ${catkin_
    ${QT_QTGUI_LIBRARY}
    ${CUDAHOG_LIBRARIES}
    ${OpenCV_LIBS}
-   ${CUDA_LIBRARIES}
  )
 
 #############
