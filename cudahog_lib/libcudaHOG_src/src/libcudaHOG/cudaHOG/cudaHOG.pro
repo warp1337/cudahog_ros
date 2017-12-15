@@ -22,7 +22,7 @@ cu.variable_out = OBJECTS
 INCLUDEPATH += $(CUDA_INC_PATH)
 QMAKE_CUFLAGS += $$QMAKE_CFLAGS
 ## QMAKE_CUEXTRAFLAGS += -arch=sm_20 --ptxas-options=-v -Xcompiler -fPIC -Xcompiler $$join(QMAKE_CUFLAGS, ",")
-QMAKE_CUEXTRAFLAGS += -arch=sm_20 -Xcompiler -fPIC -Xcompiler $$join(QMAKE_CUFLAGS, ",")
+QMAKE_CUEXTRAFLAGS += -arch=sm_20 -Xcompiler -lcudart -L/usr/local/cuda/lib64 -fPIC -Xcompiler $$join(QMAKE_CUFLAGS, ",")
 QMAKE_CUEXTRAFLAGS += $(DEFINES) $(INCPATH) $$join(QMAKE_COMPILER_DEFINES, " -D", -D)
 QMAKE_CUEXTRAFLAGS += -c
 
