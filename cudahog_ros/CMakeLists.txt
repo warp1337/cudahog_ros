@@ -1,14 +1,35 @@
 cmake_minimum_required(VERSION 2.8.3)
-project(cudahog_ros)
+PROJECT(cudahog_ros)
 
 ## Find catkin macros and libraries
 ## if COMPONENTS list like FIND_PACKAGE(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 FIND_PACKAGE(PkgConfig REQUIRED)
-FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp rospy std_msgs sensor_msgs message_filters image_transport message_generation cv_bridge)
+FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp rospy std_msgs sensor_msgs MESSAGE_filters image_transport MESSAGE_generation cv_bridge)
 FIND_PACKAGE(OpenCV REQUIRED)
 
-pkg_check_modules(CUDAHOG cudaHOG)
+PKG_CHECK_MODULES(CUDAHOG cudaHOG)
+
+FIND_PACKAGE(CUDA)
+if (CUDA_FOUND)
+  FIND_PACKAGE(CUDA REQUIRED)
+  MESSAGE(STATUS "CUDA Version: ${CUDA_VERSION_STRINGS}")
+  MESSAGE(STATUS "CUDA Libararies: ${CUDA_LIBRARIES}")
+  set(
+    CUDA_NVCC_FLAGS
+    ${CUDA_NVCC_FLAGS};
+    -O3
+    -gencode arch=compute_20,code=[sm_20,sm_21]
+    -gencode arch=compute_30,code=sm_30
+    -gencode arch=compute_35,code=sm_35
+    -gencode arch=compute_50,code=[sm_50,compute_50]
+    -gencode arch=compute_52,code=[sm_52,compute_52]
+    -gencode arch=compute_61,code=sm_61
+    -gencode arch=compute_62,code=sm_62
+  )
+else()
+  MESSAGE(ERROR "CUDA Libararies NOT found. :|")
+endif()
 
 ## Include Qt
 FIND_PACKAGE(Qt4 REQUIRED COMPONENTS QtCore QtGui)
@@ -26,7 +47,7 @@ SET(CMAKE_BUILD_TYPE Release)
 if(CUDAHOG_FOUND)
     add_definitions(-DWITH_CUDA)
 else(CUDAHOG_FOUND)
-    message(WARNING "libcudaHOG not found: Compiling cudahog_ros without any functionality.
+    MESSAGE(WARNING "libcudaHOG not found: Compiling cudahog_ros without any functionality.
     This is just a convenience function to not break compilation on systems without NVIDIA graphics cards.
     People detection will work without the ground_hog but won't be able to detect people far away from the robot.
      Please install libcudaHOG from the rwth_perception_people/3rd_party directory if possible.")
@@ -38,17 +59,17 @@ endif(CUDAHOG_FOUND)
 # catkin_python_setup()
 
 #######################################
-## Declare ROS messages and services ##
+## Declare ROS MESSAGEs and services ##
 #######################################
 
-## Generate messages in the 'msg' folder
-add_message_files(
+## Generate MESSAGEs in the 'msg' folder
+add_MESSAGE_files(
    FILES
    CudaHogDetections.msg
 )
 
-## Generate added messages and services with any dependencies listed here
-generate_messages(
+## Generate added MESSAGEs and services with any dependencies listed here
+generate_MESSAGEs(
    DEPENDENCIES
    std_msgs
 )
@@ -79,15 +100,15 @@ include_directories(include
   ${OpenCV_INCLUDE_DIRS}
 )
 
-link_directories(${CUDAHOG_LIBRARY_DIRS})
+link_directories(${CUDAHOG_LIBRARY_DIRS} ${CUDA_LIBRARIES})
 
 ## Declare a cpp executable
 add_executable(${PROJECT_NAME} src/main.cpp)
 
 ## Add cmake target dependencies of the executable/library
-## as an example, message headers may need to be generated before nodes
+## as an example, MESSAGE headers may need to be generated before nodes
 ADD_DEPENDENCIES(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
-ADD_DEPENDENCIES(${PROJECT_NAME} ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
+ADD_DEPENDENCIES(${PROJECT_NAME} ${PROJECT_NAME}_generate_MESSAGEs_cpp ${catkin_EXPORTED_TARGETS})
 
 
 ## Specify libraries to link a library or executable target against
@@ -98,6 +119,7 @@ ADD_DEPENDENCIES(${PROJECT_NAME} ${PROJECT_NAME}_generate_messages_cpp ${catkin_
    ${QT_QTGUI_LIBRARY}
    ${CUDAHOG_LIBRARIES}
    ${OpenCV_LIBS}
+   ${CUDA_LIBRARIES}
  )
 
 #############
