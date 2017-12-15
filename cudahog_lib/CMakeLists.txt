@@ -34,9 +34,7 @@ ExternalProject_Add(
     libcudaHOG
     PREFIX ${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src
     CONFIGURE_COMMAND qmake -makefile <SOURCE_DIR>
-    CONFIGURE_COMMAND ""
     BUILD_COMMAND make
-    BUILD_COMMAND ""
     INSTALL_COMMAND "" #Skipp install step. See below
 )
 
