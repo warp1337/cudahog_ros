@@ -9,7 +9,7 @@ SOURCES = cudaHOG.cpp parameters.cpp
 CUSOURCES = gradients.cu padding.cu conversions.cu blocks.cu hog.cu descriptor.cu \
 			svm.cu timer.cu detections.cu nms.cu
 
-LIBS += -l/usr/local/cuda/lib64/libcudart.so
+LIBS += /usr/local/cuda/lib64/libcudart.so
 
 QMAKE_CUC = nvcc
 cu.name = Cuda ${QMAKE_FILE_IN}
