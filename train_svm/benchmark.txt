@@ -1,0 +1,37 @@
+Based on the INRIA dataset
+
+
+Optimization finished (1 misclassified, maxdiff=0.00098).
+Runtime in cpu-seconds: 3.53
+Number of SV: 471 (including 234 at upper bound)
+L1 loss: loss=39.72938
+Norm of weight vector: |w|=1.93221
+Norm of longest example vector: |x|=10.16251
+Estimated VCdim of classifier: VCdim<=378.67096
+Computing XiAlpha-estimates...done
+Runtime for XiAlpha-estimates in cpu-seconds: 0.14
+XiAlpha-estimate of the error: error<=3.67% (rho=1.00,depth=0)
+XiAlpha-estimate of the recall: recall=>86.93% (rho=1.00,depth=0)
+XiAlpha-estimate of the precision: precision=>89.05% (rho=1.00,depth=0)
+Number of kernel evaluations: 95258
+
+
+Based on Upper Body Dataset
+
+Optimization finished (8254 misclassified, maxdiff=0.00094).
+Runtime in cpu-seconds: 867.61
+Number of SV: 19000 (including 17343 at upper bound)
+L1 loss: loss=17161.34776
+Norm of weight vector: |w|=4.00110
+Norm of longest example vector: |x|=10.16662
+Estimated VCdim of classifier: VCdim<=1653.82306
+Computing XiAlpha-estimates...done
+Runtime for XiAlpha-estimates in cpu-seconds: 1.34
+XiAlpha-estimate of the error: error<=25.04% (rho=1.00,depth=0)
+XiAlpha-estimate of the recall: recall=>5.43% (rho=1.00,depth=0)
+XiAlpha-estimate of the precision: precision=>5.52% (rho=1.00,depth=0)
+Number of kernel evaluations: 3299755
+
+
+
+
