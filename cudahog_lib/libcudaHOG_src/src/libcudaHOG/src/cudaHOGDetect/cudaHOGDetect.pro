@@ -6,6 +6,6 @@ HEADERS =
 SOURCES = main.cpp
 
 INCLUDEPATH += ../../cudaHOG
-LIBS += -lboost_program_options -lcudaHOG -L../../cudaHOG -L/usr/local/cuda/lib64 -lQtCore
+LIBS += -lboost_program_options -lcudaHOG -L../../cudaHOG -lcudart -L/usr/local/cuda/lib64 -lQtCore
 
 DESTDIR = ../../bin
