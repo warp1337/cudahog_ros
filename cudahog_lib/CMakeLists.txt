@@ -28,7 +28,7 @@ IF(CUDA_HOME)
         FILE(WRITE ${item} ${replacement})
     ENDFOREACH(item)
 ELSE()
-    MESSAGE(FATAL_ERROR "Please set the CUDA_HOME variable pointing to your cuda installation!")
+    MESSAGE(FATAL_ERROR "Please set the CUDA_HOME variable pointing to your cuda installation! -DCUDA_HOME=***PATH_TO_CUDA_INSTALL***")
 ENDIF()
 
 include(ExternalProject)
