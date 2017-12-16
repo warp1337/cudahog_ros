@@ -17,7 +17,7 @@ FILE(COPY "${CMAKE_CURRENT_SOURCE_DIR}/pkgconfig" DESTINATION ${CMAKE_CURRENT_BI
 IF(CUDA_HOME)
     MESSAGE("-- YOU SET CUDA_HOME TO: " ${CUDA_HOME})
     MESSAGE("-- PATCHING *.PRO FILES NOW")
-
+    MESSAGE("---- CHANGING /usr/local/cuda/lib64 ---> ${CUDA_HOME}/lib64")
     ### Find all *.pro files
     FILE(GLOB_RECURSE PRO_FILES "${CMAKE_CURRENT_BINARY_DIR}/libcudaHOG_src/*.pro")
 
