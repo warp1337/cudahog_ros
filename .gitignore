@@ -38,4 +38,5 @@
 build
 *libcudaHOG-build
 *libcudaHOG-stamp
+new_model
 
