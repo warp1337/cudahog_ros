@@ -42,8 +42,8 @@ cmake .. -DCMAKE_INSTALL_PREFIX=***YOUR_CHOICE*** -DCUDA_HOME=***WHERE_CUDA_IS_I
 make && make install
 </pre>
 
-Example, assuming you installed CUDA in $HOME/test_system and you also want
-cudahog_ros also installed in this folder. Note: the two paths do **not** necessarily
+An example assuming you installed CUDA in $HOME/test_system and you also want
+cudahog_ros installed in this folder/prefix. Note: the two paths do **not** necessarily
 be the same. This is just an example.
 
 <pre>
@@ -57,7 +57,7 @@ cd cudahog_ros && cd cudahog_ros
 source /opt/ros/kinetic.setup.bash
 alterntive: use your catkin_ws and source devel/setup.bash
 mkdir build && cd build
-cmake .. -DCMAKE_INSTALL_PREFIX=_YOUR_CHOICE_
+cmake .. -DCMAKE_INSTALL_PREFIX=***YOUR_CHOICE***
 make && make install
 </pre>
 
