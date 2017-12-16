@@ -18,6 +18,7 @@ Number of kernel evaluations: 95258
 
 Based on Upper Body Dataset
 
+
 Optimization finished (8254 misclassified, maxdiff=0.00094).
 Runtime in cpu-seconds: 867.61
 Number of SV: 19000 (including 17343 at upper bound)
