@@ -5,7 +5,7 @@ PROJECT(cudahog_ros)
 ## if COMPONENTS list like FIND_PACKAGE(catkin REQUIRED COMPONENTS xyz)
 ## is used, also find other catkin packages
 FIND_PACKAGE(PkgConfig REQUIRED)
-FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp rospy std_msgs sensor_msgs MESSAGE_filters image_transport MESSAGE_generation cv_bridge)
+FIND_PACKAGE(catkin REQUIRED COMPONENTS roscpp rospy std_msgs sensor_msgs message_filters image_transport message_generation cv_bridge)
 FIND_PACKAGE(OpenCV REQUIRED)
 
 PKG_CHECK_MODULES(CUDAHOG cudaHOG)
@@ -42,13 +42,13 @@ endif(CUDAHOG_FOUND)
 #######################################
 
 ## Generate MESSAGEs in the 'msg' folder
-add_MESSAGE_files(
+add_message_files(
    FILES
    CudaHogDetections.msg
 )
 
-## Generate added MESSAGEs and services with any dependencies listed here
-generate_MESSAGEs(
+## Generate added messages and services with any dependencies listed here
+generate_messages(
    DEPENDENCIES
    std_msgs
 )
@@ -87,7 +87,7 @@ add_executable(${PROJECT_NAME} src/main.cpp)
 ## Add cmake target dependencies of the executable/library
 ## as an example, MESSAGE headers may need to be generated before nodes
 ADD_DEPENDENCIES(${PROJECT_NAME} ${catkin_EXPORTED_TARGETS})
-ADD_DEPENDENCIES(${PROJECT_NAME} ${PROJECT_NAME}_generate_MESSAGEs_cpp ${catkin_EXPORTED_TARGETS})
+ADD_DEPENDENCIES(${PROJECT_NAME} ${PROJECT_NAME}_generate_messages_cpp ${catkin_EXPORTED_TARGETS})
 
 
 ## Specify libraries to link a library or executable target against

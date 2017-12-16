@@ -27,6 +27,8 @@ IF(CUDA_HOME)
         STRING(REPLACE "/usr/local/cuda/" "${CUDA_HOME}/" replacement "${Contents}")
         FILE(WRITE ${item} ${replacement})
     ENDFOREACH(item)
+ELSE()
+    MESSAGE(FATAL_ERROR "Please set the CUDA_HOME variable pointing to your cuda installation!")
 ENDIF()
 
 include(ExternalProject)

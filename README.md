@@ -30,18 +30,16 @@ However, using apt is also fine.
 Since this package is named cudahog_**ROS**, it is assumed that you already 
 have ROS installed. Okay, now clone this repo.
 
-First compile libcudaHOG. If you dont set CUDA_HOME, it is assumed
-cuda is installed in /usr/local/cuda/lib64 (the standard)
+First compile libcudaHOG. You need to set CUDA_HOME! Usually, if you
+install CUDA by using apt it is located in /usr/local/cuda/. If you
+installed CUDA using the custom installer and you changed the location
+you will most probably know where you cuda installation is located.
 
 <pre>
 cd cudahog_ros && cd cudahog_lib
 
-source /opt/ros/kinetic.setup.bash
-alterntive: use your catkin_ws and source devel/setup.bash
-
 mkdir build && cd build
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
-cmake .. -DCMAKE_INSTALL_PREFIX=__YOUR_CHOICE__ -DCUDA_HOME=__WHERE_CUDA_IS_INSTALLED__
+cmake .. -DCMAKE_INSTALL_PREFIX=***YOUR_CHOICE*** -DCUDA_HOME=***WHERE_CUDA_IS_INSTALLED***
 make && make install
 </pre>
 
@@ -54,7 +52,6 @@ source /opt/ros/kinetic.setup.bash
 alterntive: use your catkin_ws and source devel/setup.bash
 
 mkdir build && cd build
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
 cmake .. -DCMAKE_INSTALL_PREFIX=_YOUR_CHOICE_
 make && make install
 </pre>
@@ -67,7 +64,6 @@ You are done.
 source $INSTALL_PREFIX/setup.bash
 or
 source devel/setup.bash
-export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$CUDA_HOME/lib64
 roslaunch cudahog_ros cudahog.launch
 </pre>
 
