@@ -26,10 +26,7 @@ SET(CMAKE_BUILD_TYPE Release)
 if(CUDAHOG_FOUND)
     add_definitions(-DWITH_CUDA)
 else(CUDAHOG_FOUND)
-    MESSAGE(WARNING "libcudaHOG not found: Compiling cudahog_ros without any functionality.
-    This is just a convenience function to not break compilation on systems without NVIDIA graphics cards.
-    People detection will work without the ground_hog but won't be able to detect people far away from the robot.
-     Please install libcudaHOG from the rwth_perception_people/3rd_party directory if possible.")
+    MESSAGE(FATAL_ERROR "libcudaHOG not found. Please build this library first.")
 endif(CUDAHOG_FOUND)
 
 ## Uncomment this if the package has a setup.py. This macro ensures
