@@ -9,8 +9,6 @@ SOURCES = cudaHOG.cpp parameters.cpp
 CUSOURCES = gradients.cu padding.cu conversions.cu blocks.cu hog.cu descriptor.cu \
 			svm.cu timer.cu detections.cu nms.cu
 
-LD_LIBRARY_PATH += /usr/local/cuda/lib64
-
 LIBS += -lcudart -L/usr/local/cuda/lib64
 
 QMAKE_CUC = /usr/local/cuda/bin/nvcc
